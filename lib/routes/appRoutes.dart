@@ -11,6 +11,6 @@ abstract class Routes {
 abstract class _Paths {
   _Paths._();
   static const MAINMENUP = '/MainMenuPage';
-  static const PARENTFORMPAGE = '/  ';
+  static const PARENTFORMPAGE = '/ParentFormPage';
   static const ALUMNIFORMPAGE = '/AlumniFormPage';
 }
