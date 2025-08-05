@@ -12,34 +12,67 @@ class MainMenuP extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 35,
+                      height: 35,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/icon/bukuTamu.png'),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      "BukuTamu",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        color: PrimaryColor().blue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: PrimaryColor().shadowGrey,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                          3), // sesuaikan agar image lebih kecil
+                      child: Icon(
+                        Icons.logout,
+                        color: PrimaryColor().blue,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Stack(children: [
-            // Container(
-            //   width: MediaQuery.of(context).size.width,
-            //   child: Row(
-            //     children: [
-            //       Container(
-            //         width: MediaQuery.of(context).size.width * 0.1,
-            //         height: MediaQuery.of(context).size.height * 0.1,
-            //         decoration: const BoxDecoration(
-            //           image: DecorationImage(
-            //               image: AssetImage('assets/icon/bukutamu.jpg'),
-            //               fit: BoxFit.cover),
-            //         ),
-            //       ),
-            //       Text(
-            //         "BukuTamu",
-            //         style: TextStyle(
-            //             fontFamily: 'Roboto',
-            //             color: PrimaryColor().blue,
-            //             fontSize: 20,
-            //             fontWeight: FontWeight.w600),
-            //       )
-            //     ],
-            //   ),
-            // ),
             Positioned(
               left: 0,
               right: 0,

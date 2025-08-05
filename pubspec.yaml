@@ -73,6 +73,7 @@ flutter:
     - assets/icon/kunjungan.png
     - assets/icon/perusahaan.png
     - assets/icon/alumni.png
+    - assets/icon/logout.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
