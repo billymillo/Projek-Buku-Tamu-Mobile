@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:mobile/pages/AlumniFormPage.dart';
+import 'package:mobile/pages/ParentFormPage.dart';
 import 'package:mobile/pages/mainMenuP.dart';
 part 'appRoutes.dart';
 
@@ -11,6 +13,14 @@ class AppPages {
     GetPage(
       name: _Paths.MAINMENUP,
       page: () => MainMenuP(),
+    ),
+    GetPage(
+      name: _Paths.PARENTFORMPAGE,
+      page: () => ParentFormPage(),
+    ),
+    GetPage(
+      name: _Paths.ALUMNIFORMPAGE,
+      page: () => AlumniFormPage(),
     ),
   ];
 }
