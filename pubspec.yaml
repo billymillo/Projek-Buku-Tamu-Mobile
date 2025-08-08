@@ -77,6 +77,9 @@ flutter:
 
     - assets/lottie/splashScreen.json
     - assets/lottie/splashScreen2.json
+    - assets/image/slider4.jpg
+    - assets/image/slider5.jpg
+    - assets/image/Logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

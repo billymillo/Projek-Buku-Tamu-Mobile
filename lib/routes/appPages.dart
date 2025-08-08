@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mobile/pages/AlumniFormPage.dart';
 import 'package:mobile/pages/ParentFormPage.dart';
-import 'package:mobile/pages/kunjunganFormP';
 import 'package:mobile/pages/mainMenuP.dart';
 import 'package:mobile/pages/validationP.dart';
 part 'appRoutes.dart';
@@ -27,10 +26,6 @@ class AppPages {
     GetPage(
       name: _Paths.ALUMNIFORMPAGE,
       page: () => AlumniFormPage(),
-    ),
-    GetPage(
-      name: _Paths.KUNJUNGANFORMP,
-      page: () => KunjunganFormPage(),
     ),
   ];
 }
