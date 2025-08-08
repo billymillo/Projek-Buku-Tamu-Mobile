@@ -4,9 +4,11 @@ part of 'appPages.dart';
 abstract class Routes {
   Routes._();
   static const MAINMENUP = _Paths.MAINMENUP;
+  static const LOGINPAGE = _Paths.LOGINPAGE;
 }
 
 abstract class _Paths {
   _Paths._();
   static const MAINMENUP = '/MainMenuPage';
+  static const LOGINPAGE = '/LoginPage';
 }

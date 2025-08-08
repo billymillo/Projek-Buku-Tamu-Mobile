@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mobile/pages/mainMenuP.dart';
+import 'package:mobile/screens/login_page.dart';
 part 'appRoutes.dart';
 
 class AppPages {
@@ -11,6 +12,10 @@ class AppPages {
     GetPage(
       name: _Paths.MAINMENUP,
       page: () => MainMenuP(),
+    ),
+    GetPage(
+      name: _Paths.LOGINPAGE,
+      page: () => LoginPage(),
     ),
   ];
 }
