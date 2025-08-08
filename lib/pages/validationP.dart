@@ -20,7 +20,7 @@ class _ValidationPState extends State<ValidationP>
     _controller = AnimationController(vsync: this);
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Get.offNamed(Routes.MAINMENUP);
+        Get.offNamed(Routes.LOGINPAGE);
       }
     });
   }

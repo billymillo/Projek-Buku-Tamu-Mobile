@@ -8,6 +8,7 @@ abstract class Routes {
   static const PARENTFORMPAGE = _Paths.PARENTFORMPAGE;
   static const ALUMNIFORMPAGE = _Paths.ALUMNIFORMPAGE;
   static const KUNJUNGANFORMP = _Paths.KUNJUNGANFORMP;
+  static const LOGINPAGE = _Paths.LOGINPAGE;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const PARENTFORMPAGE = '/ParentFormPage';
   static const ALUMNIFORMPAGE = '/AlumniFormPage';
   static const KUNJUNGANFORMP = '/KunjunganFormPage';
+  static const LOGINPAGE = '/LoginPage';
 }

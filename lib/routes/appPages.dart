@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:mobile/pages/AlumniFormPage.dart';
 import 'package:mobile/pages/ParentFormPage.dart';
+import 'package:mobile/pages/login_page.dart';
 import 'package:mobile/pages/mainMenuP.dart';
 import 'package:mobile/pages/validationP.dart';
-import 'package:mobile/screens/login_page.dart';
 part 'appRoutes.dart';
 
 class AppPages {
@@ -27,6 +27,10 @@ class AppPages {
     GetPage(
       name: _Paths.ALUMNIFORMPAGE,
       page: () => AlumniFormPage(),
+    ),
+    GetPage(
+      name: _Paths.LOGINPAGE,
+      page: () => LoginPage(),
     ),
   ];
 }

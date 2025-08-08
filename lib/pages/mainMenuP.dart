@@ -46,7 +46,9 @@ class MainMenuP extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.LOGINPAGE);
+                  },
                   child: Container(
                     width: 38,
                     height: 38,
@@ -311,23 +313,25 @@ class MainMenuP extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    decoration: BoxDecoration(
-                        color: PrimaryColor().shadowGrey,
-                        borderRadius: BorderRadius.circular(32)),
-                    child: Align(
-                      child: GestureDetector(
-                          child: Text(
-                        'Kunjungan Sebelumnya',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          color: PrimaryColor().blue,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 1,
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      decoration: BoxDecoration(
+                          color: PrimaryColor().shadowGrey,
+                          borderRadius: BorderRadius.circular(32)),
+                      child: Align(
+                        child: Text(
+                          'Kunjungan Sebelumnya',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            color: PrimaryColor().blue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      )),
+                      ),
                     ),
                   )
                 ],
