@@ -1,13 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:mobile/controller/MenuController.dart';
 import 'package:mobile/models/colorpalette.dart';
 import 'package:mobile/routes/appPages.dart';
 
 class MainMenuP extends StatelessWidget {
-  const MainMenuP({super.key});
-
+  MainMenuP({super.key});
+  final controller = Get.put(SliderController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,8 +57,7 @@ class MainMenuP extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(
-                          3), // sesuaikan agar image lebih kecil
+                      padding: const EdgeInsets.all(3),
                       child: Icon(
                         Icons.logout,
                         color: PrimaryColor().blue,
@@ -97,14 +99,57 @@ class MainMenuP extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1,
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.25,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: const DecorationImage(
-                          image: AssetImage('assets/image/slider1.jpg'),
-                          fit: BoxFit.cover),
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        PageView.builder(
+                          controller: controller.pageController,
+                          itemCount: controller.sliderImages.length,
+                          onPageChanged: (index) =>
+                              controller.currentPage.value = index,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 8),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      controller.sliderImages[index]),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          child: Obx(() {
+                            return Row(
+                              children: List.generate(
+                                controller.sliderImages.length,
+                                (index) => Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 3),
+                                  width: controller.currentPage.value == index
+                                      ? 12
+                                      : 6,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    color: controller.currentPage.value == index
+                                        ? PrimaryColor().blue
+                                        : PrimaryColor().blue.withOpacity(0.3),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        )
+                      ],
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -149,35 +194,39 @@ class MainMenuP extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 20),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.height * 0.23,
-                          decoration: BoxDecoration(
-                              color: PrimaryColor().shadowGrey,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.1,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/icon/kunjungan.png'),
+                        GestureDetector(
+                          onTap: () => Get.toNamed(Routes.KUNJUNGANFORMP),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            height: MediaQuery.of(context).size.height * 0.23,
+                            decoration: BoxDecoration(
+                                color: PrimaryColor().shadowGrey,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/icon/kunjungan.png'),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(
-                                "Kunjungan",
-                                style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    color: PrimaryColor().blue,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
-                              )
-                            ],
+                                Text(
+                                  "Kunjungan",
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: PrimaryColor().blue,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],

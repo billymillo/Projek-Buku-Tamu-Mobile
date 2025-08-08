@@ -3,14 +3,18 @@ part of 'appPages.dart';
 
 abstract class Routes {
   Routes._();
+  static const VALIDATIONP = _Paths.VALIDATIONP;
   static const MAINMENUP = _Paths.MAINMENUP;
   static const PARENTFORMPAGE = _Paths.PARENTFORMPAGE;
   static const ALUMNIFORMPAGE = _Paths.ALUMNIFORMPAGE;
+  static const KUNJUNGANFORMP = _Paths.KUNJUNGANFORMP;
 }
 
 abstract class _Paths {
   _Paths._();
   static const MAINMENUP = '/MainMenuPage';
+  static const VALIDATIONP = '/ValidationPage';
   static const PARENTFORMPAGE = '/ParentFormPage';
   static const ALUMNIFORMPAGE = '/AlumniFormPage';
+  static const KUNJUNGANFORMP = '/KunjunganFormPage';
 }
