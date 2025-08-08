@@ -63,9 +63,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/image/Icon.png
     - assets/image/slider1.jpg
     - assets/image/slider2.png
     - assets/image/slider3.png
+    - assets/image/slider5.png
+    - assets/image/slider6.png
     - assets/image/clippath1.png
     
     - assets/icon/bukuTamu.png
@@ -77,8 +80,6 @@ flutter:
 
     - assets/lottie/splashScreen.json
     - assets/lottie/splashScreen2.json
-    - assets/image/slider4.jpg
-    - assets/image/slider5.jpg
     - assets/image/Logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
