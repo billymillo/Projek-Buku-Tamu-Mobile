@@ -67,8 +67,19 @@ flutter:
     - assets/image/slider1.jpg
     - assets/image/slider2.jpg
     - assets/image/slider3.jpg
+<<<<<<< HEAD
     - assets/image/slider5.png
     - assets/image/slider6.png
+=======
+    - assets/image/clippath1.png
+    
+    - assets/icon/bukuTamu.png
+    - assets/icon/orangtua.png
+    - assets/icon/kunjungan.png
+    - assets/icon/perusahaan.png
+    - assets/icon/alumni.png
+    - assets/icon/logout.png
+>>>>>>> 2eebd6d4f239b17e3088cd104aeadb875134d34b
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
