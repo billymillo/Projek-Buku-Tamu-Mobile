@@ -1,0 +1,233 @@
+import 'package:flutter/material.dart';
+
+class PerusahaanFormPage extends StatefulWidget {
+  const PerusahaanFormPage({super.key});
+
+  @override
+  State<PerusahaanFormPage> createState() => _PerusahaanFormPageState();
+}
+
+class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
+  final _formKey = GlobalKey<FormState>();
+  String? selectedPurpose;
+  final purposes = ['Bertamu', 'Kunjungan Dinas', 'Lainnya'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      body: Stack(
+        children: [
+          // Top curve
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: CustomPaint(
+              size: Size(MediaQuery.of(context).size.width, 200),
+            ),
+          ),
+          // Top image
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/image/slider5.png',
+              width: MediaQuery.of(context).size.width,
+              height: 250,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+          // Bottom curve
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: CustomPaint(
+              size: Size(MediaQuery.of(context).size.width, 200),
+            ),
+          ),
+          // Bottom image
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/image/slider6.png',
+              width: MediaQuery.of(context).size.width,
+              height: 200,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+          // Copyright notice
+          Positioned(
+            bottom: 30,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                '© 2025 PPLG XII - 3 | GEN - 21 All rights reserved.',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+              ),
+            ),
+          ),
+          // Main content
+          Positioned.fill(
+            top: 20,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const SizedBox(width: 10),
+                      Image.asset(
+                        'assets/image/icon.png',
+                        height: 40,
+                     color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Title
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Perusahaan',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'roboto',
+                        color: Color(0xFF001E42),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Form content
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _inputField('Nama', required: true),
+                            _inputField('Nama Penanggung Jawab', required: true),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: DropdownButtonFormField<String>(
+                                value: selectedPurpose,
+                                hint: const Text('Sebutkan Keperluan Anda'),
+                                items: purposes
+                                    .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Text(e),
+                                        ))
+                                    .toList(),
+                                onChanged: (val) =>
+                                    setState(() => selectedPurpose = val),
+                                decoration: _inputDecoration().copyWith(
+                                  labelText: 'Keperluan *',
+                                ),
+                              ),
+                            ),
+                            _inputField('No. Telp',
+                                type: TextInputType.phone, required: true),
+                            _inputField('Email (Opsional)', required: false),
+                            const SizedBox(height: 10),
+                            Container(
+                              height: 120,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(color: Colors.grey),
+                              ),
+                              child: const Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.edit,
+                                        size: 36, color: Colors.blueGrey),
+                                    SizedBox(height: 8),
+                                    Text('Tanda Tangan',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                _actionButton(
+                                    'Kembali', Colors.grey[300]!, Colors.black),
+                                const SizedBox(width: 10),
+                                _actionButton(
+                                    'Simpan', const Color(0xFF112D4E), Colors.white),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 50),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  InputDecoration _inputDecoration() => InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      );
+
+  Widget _inputField(String label, {TextInputType? type, bool required = false}) =>
+      Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: TextFormField(
+          keyboardType: type,
+          decoration: _inputDecoration().copyWith(
+            labelText: required ? '$label *' : label,
+            hintText: 'Masukkan $label',
+          ),
+        ),
+      );
+
+  Widget _actionButton(String text, Color bg, Color fg) => Expanded(
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: bg,
+            foregroundColor: fg,
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontFamily: 'roboto',
+            ),
+          ),
+        ),
+      );
+}

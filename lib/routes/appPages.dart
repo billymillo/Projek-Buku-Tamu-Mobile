@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:mobile/pages/AlumniFormPage.dart';
+import 'package:mobile/pages/HistoryPage.dart';
+import 'package:mobile/pages/KunjunganFormP';
 import 'package:mobile/pages/ParentFormPage.dart';
+import 'package:mobile/pages/PerusahaanFormP.dart';
 import 'package:mobile/pages/login_page.dart';
 import 'package:mobile/pages/mainMenuP.dart';
 import 'package:mobile/pages/validationP.dart';
@@ -31,6 +34,18 @@ class AppPages {
     GetPage(
       name: _Paths.LOGINPAGE,
       page: () => LoginPage(),
+    ),
+    GetPage(
+      name: _Paths.HISTORYPAGE,
+      page: () => Historypage(),
+    ),
+    GetPage(
+      name: _Paths.KUNJUNGANFORMP,
+      page: () => KunjunganFormPage(),
+    ),
+    GetPage(
+      name: _Paths.PERUSAHAANFORMP,
+      page: () => PerusahaanFormPage(),
     ),
   ];
 }

@@ -68,7 +68,7 @@ class Historypage extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       const Text(
-                        'Bukutamu',
+                        'BukuTamu',
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,

@@ -276,35 +276,39 @@ class MainMenuP extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 20),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.height * 0.23,
-                          decoration: BoxDecoration(
-                              color: PrimaryColor().shadowGrey,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.1,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/icon/perusahaan.png'),
+                        GestureDetector(
+                          onTap: () => Get.toNamed(Routes.PERUSAHAANFORMP),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            height: MediaQuery.of(context).size.height * 0.23,
+                            decoration: BoxDecoration(
+                                color: PrimaryColor().shadowGrey,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/icon/perusahaan.png'),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(
-                                "Perusahaan",
-                                style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    color: PrimaryColor().blue,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
-                              )
-                            ],
+                                Text(
+                                  "Perusahaan",
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: PrimaryColor().blue,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -314,7 +318,9 @@ class MainMenuP extends StatelessWidget {
                     height: 20,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.HISTORYPAGE);
+                    },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 1,
                       height: MediaQuery.of(context).size.height * 0.08,
