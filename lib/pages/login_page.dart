@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile/controller/LoginController.dart';
 import 'package:mobile/models/colorpalette.dart';
 import 'package:mobile/routes/appPages.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+  final LoginController loginController = Get.put(LoginController());
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class LoginPage extends StatelessWidget {
               right: 0,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.3,
+                height: MediaQuery.of(context).size.height * 0.4,
                 child: const DecoratedBox(
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -40,7 +44,7 @@ class LoginPage extends StatelessWidget {
                 child: const DecoratedBox(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/image/slider6.png'),
+                      image: AssetImage('assets/image/slider7.png'),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -61,125 +65,64 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 160),
                   const Text(
                     "Masuk",
                     style: TextStyle(
-                        fontSize: 21,
+                        fontSize: 40,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF001E42),
                         fontFamily: "Roboto"),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 32),
-                  const Text(
-                    "Email *",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF001E42),
-                        fontSize: 14),
-                  ),
                   TextField(
-                    decoration: InputDecoration(
-                      hintText: "Masukan Email...",
-                      hintStyle: TextStyle(
-                          fontSize: 12, color: PrimaryColor().shadowBlue),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide:
-                            BorderSide(color: PrimaryColor().blue, width: 2),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide:
-                            BorderSide(color: PrimaryColor().blue, width: 2),
-                      ),
-                    ),
-                  ),
+                      controller: emailController,
+                      decoration:
+                          inputDecoration(label: "Email", label2: " *")),
                   const SizedBox(height: 20),
-                  const Text(
-                    "Kata Sandi *",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF001E42),
-                        fontSize: 14),
-                  ),
                   TextField(
-                    decoration: InputDecoration(
-                      hintText: "Masukkan Kata Sandi...",
-                      hintStyle: TextStyle(
-                          fontSize: 12, color: PrimaryColor().shadowBlue),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide:
-                            BorderSide(color: PrimaryColor().blue, width: 2),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide:
-                            BorderSide(color: PrimaryColor().blue, width: 2),
-                      ),
-                    ),
-                  ),
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration:
+                          inputDecoration(label: "Kata Sandi", label2: " *")),
                   const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: false,
-                        onChanged: (value) {},
-                        activeColor: PrimaryColor().blue,
-                        visualDensity:
-                            const VisualDensity(horizontal: -4, vertical: -4),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        "Remember me?",
-                        style: TextStyle(
-                          color: PrimaryColor().blue,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          fontFamily: "Roboto",
-                        ),
-                      ),
-                    ],
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          Get.toNamed(Routes.MAINMENUP);
+                          loginController.login(
+                            emailController.text,
+                            passwordController.text,
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: PrimaryColor().blue,
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: const Text(
-                          "Lanjutkan",
-                          style: TextStyle(
-                            fontFamily: "Roboto",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.white,
-                          ),
+                        child: Obx(
+                          () => loginController.isLoading.value
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white)
+                              : const Text(
+                                  "Lanjutkan",
+                                  style: TextStyle(
+                                    fontFamily: "Roboto",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                  ),
+                                ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 200),
+                  const SizedBox(height: 170),
                   const Center(
                     child: Text(
                       "© 2025 PPLG XII - 3 | GEN - 21. All rights reserved.",
@@ -195,4 +138,54 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+
+  InputDecoration inputDecoration({String? label, label2}) => InputDecoration(
+        label: label != null
+            ? RichText(
+                text: TextSpan(
+                  text: label,
+                  style: TextStyle(
+                    color: PrimaryColor().blue, // warna label
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: label2,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : null,
+        hintText: label != null ? 'Masukkan $label' : null,
+        hintStyle: const TextStyle(color: Colors.grey, fontSize: 12),
+        floatingLabelBehavior:
+            FloatingLabelBehavior.always, // <-- label selalu di atas
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: PrimaryColor().blue,
+            width: 2,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 1,
+          ),
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        filled: true,
+        fillColor: Colors.white,
+      );
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile/routes/appPages.dart';
 
 class Historypage extends StatelessWidget {
   const Historypage({Key? key}) : super(key: key);
@@ -63,7 +65,7 @@ class Historypage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Image.asset(
-                        'assets/image/logo.png',
+                        'assets/image/Logo.png',
                         height: 40,
                       ),
                       const SizedBox(width: 10),
@@ -90,79 +92,81 @@ class Historypage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-              Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-            padding: const EdgeInsets.all(20), 
-            decoration: BoxDecoration(
-              color: const Color(0xFFE2E8F0),
-              borderRadius: BorderRadius.circular(15),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 15),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Tanggal'),
-                  SizedBox(height: 5),
-                  Text('Kunjungan'),
-                  SizedBox(height: 5),
-                  Text('Lembaga'),
-                ],
-              ),
-            ),
-            const SizedBox(height: 15),
                 Container(
-                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: const Color(0xFFE2E8F0),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Tanggal'),
-                      SizedBox(height: 5),
-                      Text('Kunjungan'),
-                      Text('Lembaga'),
+                      const SizedBox(height: 15),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Tanggal'),
+                            SizedBox(height: 5),
+                            Text('Kunjungan'),
+                            SizedBox(height: 5),
+                            Text('Lembaga'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Tanggal'),
+                            SizedBox(height: 5),
+                            Text('Kunjungan'),
+                            Text('Lembaga'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Tanggal'),
+                            SizedBox(height: 5),
+                            Text('Kunjungan'),
+                            Text('Lembaga'),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 15),
-                Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Tanggal'),
-                        SizedBox(height: 5),
-                        Text('Kunjungan'),
-                        Text('Lembaga'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
                 const SizedBox(height: 40),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Routes.MAINMENUP);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFE2E8F0),
                       shape: RoundedRectangleBorder(

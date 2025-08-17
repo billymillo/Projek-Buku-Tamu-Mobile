@@ -1,7 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile/controller/AlumniController.dart';
+import 'package:mobile/models/colorpalette.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:signature/signature.dart';
 
 class AlumniFormPage extends StatefulWidget {
-  const AlumniFormPage({super.key});
+  AlumniFormPage({super.key});
 
   @override
   State<AlumniFormPage> createState() => _AlumniFormPageState();
@@ -9,108 +17,473 @@ class AlumniFormPage extends StatefulWidget {
 
 class _AlumniFormPageState extends State<AlumniFormPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final AlumniController alumniC = Get.put(AlumniController());
+
+  final TextEditingController namaController = TextEditingController();
+  final TextEditingController graduationController = TextEditingController();
+  final TextEditingController majorController = TextEditingController();
+  final TextEditingController teleponController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController kunjunganController = TextEditingController();
+
   String? selectedPurpose;
-  final purposes = ['Menjemput', 'Mengantar Barang', 'Lainnya'];
+
+  final purposes = ['Rekruitmen', 'Kuliah Umum', 'Lainnya'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              height: 100,
-              decoration: const BoxDecoration(
-                color: Color(0xFF112D4E),
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
-              ),
-              alignment: Alignment.bottomLeft,
-              child: const Text('Alumni', style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold)),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: CustomPaint(
+              size: Size(MediaQuery.of(context).size.width, 200),
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/image/slider5.png',
+              width: 300,
+              height: 250,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: CustomPaint(
+              size: Size(MediaQuery.of(context).size.width, 200),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/image/slider6.png',
+              width: 300,
+              height: 150,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned(
+            bottom: 15,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                '© 2025 PPLG XII - 3 | GEN - 21 All rights reserved.',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            top: 20,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      _inputField('Nama'),
-                      _inputField('Lulusan Tahun'),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: DropdownButtonFormField<String>(
-                          value: selectedPurpose,
-                          hint: const Text('Masukkan Keperluan'),
-                          items: purposes.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-                          onChanged: (val) => setState(() => selectedPurpose = val),
-                          decoration: _inputDecoration(),
-                        ),
+                      const SizedBox(width: 10),
+                      Image.asset(
+                        'assets/image/Icon.png',
+                        height: 40,
+                        color: Colors.white,
                       ),
-                      _inputField('Jurusan'),
-                      _inputField('No. Telp', type: TextInputType.phone),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          _iconButton(Icons.camera_alt),
-                          const SizedBox(width: 10),
-                          _iconButton(Icons.edit),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      Row(
-                        children: [
-                          _actionButton('Kembali', Colors.grey[300]!, Colors.black),
-                          const SizedBox(width: 10),
-                          _actionButton('Simpan', const Color(0xFF112D4E), Colors.white),
-                        ],
-                      )
                     ],
                   ),
                 ),
-              ),
-            )
-          ],
-        ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Alumni',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'roboto',
+                        color: PrimaryColor().blue,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      namaController.clear();
+                      graduationController.clear();
+                      majorController.clear();
+                      teleponController.clear();
+                      emailController.clear();
+                      kunjunganController.clear();
+                      selectedPurpose = null;
+                      alumniC.savedSignatureFile.value = null;
+                      alumniC.signatureController.clear();
+                      await Future.delayed(const Duration(milliseconds: 500));
+                    },
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              inputField('Nama', " *", namaController),
+                              inputField('Tahun Kelulusan', " *",
+                                  graduationController),
+                              inputField('Kejurusan', " *", majorController),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: DropdownButtonFormField<String>(
+                                  value: selectedPurpose,
+                                  hint: const Text(
+                                    'Sebutkan Keperluan Anda',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'roboto',
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                  items: purposes
+                                      .map((e) => DropdownMenuItem(
+                                            value: e,
+                                            child: Text(
+                                              e,
+                                              style: const TextStyle(
+                                                  fontSize: 12,
+                                                  fontFamily: 'roboto',
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                          ))
+                                      .toList(),
+                                  onChanged: (val) {
+                                    setState(() {
+                                      selectedPurpose = val;
+                                      if (val != "Lainnya") {
+                                        kunjunganController.clear();
+                                      }
+                                    });
+                                  },
+                                  decoration: inputDecoration(
+                                      label: "Keperluan", label2: " *"),
+                                ),
+                              ),
+                              if (selectedPurpose == "Lainnya") ...[
+                                inputField('Keperluan Lainnya', " *",
+                                    kunjunganController),
+                              ],
+                              inputField('No. Telp', " *", teleponController,
+                                  type: TextInputType.phone),
+                              inputField('Email', " ", emailController,
+                                  type: TextInputType.phone),
+                              const SizedBox(height: 20),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.bottomSheet(
+                                    Container(
+                                      height: 350,
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "Tanda Tangan",
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: "Roboto",
+                                                color: PrimaryColor().blue),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Expanded(
+                                            child: Signature(
+                                              controller:
+                                                  alumniC.signatureController,
+                                              backgroundColor:
+                                                  Colors.grey[200]!,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              ElevatedButton.icon(
+                                                style: const ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStatePropertyAll(
+                                                            Colors.white)),
+                                                onPressed: () {
+                                                  alumniC.signatureController
+                                                      .clear();
+                                                },
+                                                icon: Icon(
+                                                  Icons.clear,
+                                                  color: PrimaryColor().red,
+                                                ),
+                                                label: const Text(
+                                                  "Clear",
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                              ElevatedButton.icon(
+                                                onPressed: () async {
+                                                  final bytes = await alumniC
+                                                      .signatureController
+                                                      .toPngBytes();
+                                                  if (bytes != null) {
+                                                    final tempDir =
+                                                        await getTemporaryDirectory();
+                                                    final file = File(
+                                                      '${tempDir.path}/signature_${DateTime.now().millisecondsSinceEpoch}.png',
+                                                    );
+                                                    await file
+                                                        .writeAsBytes(bytes);
+
+                                                    alumniC.savedSignatureFile
+                                                        .value = file;
+
+                                                    debugPrint(
+                                                        "Signature tersimpan di: ${file.path}");
+                                                    Get.back();
+                                                  }
+                                                },
+                                                icon: Icon(
+                                                  Icons.check,
+                                                  color: PrimaryColor().green,
+                                                ),
+                                                label: const Text(
+                                                  "Simpan",
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    isScrollControlled: true,
+                                  );
+                                },
+                                child: Obx(() {
+                                  return Container(
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: Center(
+                                      child: alumniC.savedSignatureFile.value !=
+                                              null
+                                          ? Image.file(
+                                              alumniC.savedSignatureFile.value!,
+                                              key: ValueKey(DateTime.now()
+                                                  .millisecondsSinceEpoch),
+                                              fit: BoxFit.contain,
+                                            )
+                                          : Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      right: 10),
+                                                  child: Image.asset(
+                                                    'assets/icon/signature.png',
+                                                    height: 40,
+                                                    width: 40,
+                                                    color: PrimaryColor().blue,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8),
+                                                const Text(
+                                                  'Tanda Tangan',
+                                                  style: TextStyle(
+                                                      fontSize: 17,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily: "Roboto",
+                                                      color: Color(0xff27374D)),
+                                                )
+                                              ],
+                                            ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                              const SizedBox(height: 30),
+                              Row(
+                                children: [
+                                  _actionButton('Kembali', Colors.grey[300]!,
+                                      Colors.black, () {
+                                    Get.back();
+                                  }),
+                                  const SizedBox(width: 10),
+                                  _actionButton(
+                                      'Simpan',
+                                      const Color(0xFF112D4E),
+                                      Colors.white, () {
+                                    if (selectedPurpose != "Lainnya") {
+                                      alumniC.addAlumni(
+                                        namaController.text,
+                                        graduationController.text,
+                                        majorController.text,
+                                        teleponController.text,
+                                        emailController.text,
+                                        selectedPurpose.toString(),
+                                      );
+                                    }
+                                    if (selectedPurpose == "Lainnya") {
+                                      alumniC.addAlumni(
+                                        namaController.text,
+                                        graduationController.text,
+                                        majorController.text,
+                                        teleponController.text,
+                                        emailController.text,
+                                        kunjunganController.text,
+                                      );
+                                    }
+                                    namaController.clear();
+                                    graduationController.clear();
+                                    majorController.clear();
+                                    teleponController.clear();
+                                    emailController.clear();
+                                    kunjunganController.clear();
+                                    selectedPurpose = null;
+                                    alumniC.savedSignatureFile.value = null;
+                                  }),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 50),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  InputDecoration _inputDecoration() => InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  InputDecoration inputDecoration({String? label, label2}) => InputDecoration(
+        label: label != null
+            ? RichText(
+                text: TextSpan(
+                  text: label,
+                  style: TextStyle(
+                    color: PrimaryColor().blue, // warna label
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: label2,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : null,
+        hintText: label != null ? 'Masukkan $label' : null,
+        hintStyle: const TextStyle(color: Colors.grey, fontSize: 12),
+        floatingLabelBehavior:
+            FloatingLabelBehavior.always, // <-- label selalu di atas
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.blue,
+            width: 2,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 1,
+          ),
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        filled: true,
+        fillColor: Colors.white,
       );
 
-  Widget _inputField(String label, {TextInputType? type}) => Padding(
+  Widget inputField(
+          String label, String label2, TextEditingController controller,
+          {TextInputType? type}) =>
+      Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: TextFormField(
+          style: const TextStyle(fontSize: 13),
+          controller: controller,
           keyboardType: type,
-          decoration: _inputDecoration().copyWith(labelText: label, hintText: 'Masukkan $label'),
+          decoration: inputDecoration(label: label, label2: label2),
         ),
       );
 
-  Widget _iconButton(IconData icon) => Expanded(
-        child: Container(
-          height: 100,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Center(child: Icon(icon, size: 36, color: Colors.blueGrey)),
-        ),
-      );
-
-  Widget _actionButton(String text, Color bg, Color fg) => Expanded(
+  Widget _actionButton(String text, Color bg, Color fg, VoidCallback onTap) =>
+      Expanded(
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onTap,
           style: ElevatedButton.styleFrom(
             backgroundColor: bg,
             foregroundColor: fg,
             padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
           ),
-          child: Text(text),
+          child: Obx(() => alumniC.isLoading.value
+              ? const CircularProgressIndicator(color: Colors.white)
+              : Text(
+                  text,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'roboto',
+                  ),
+                )),
         ),
       );
 }

@@ -3,25 +3,25 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile/controller/PerusahaanController.dart';
+import 'package:mobile/controller/KunjunganController.dart';
 import 'package:mobile/models/colorpalette.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:signature/signature.dart';
 
-class PerusahaanFormPage extends StatefulWidget {
-  PerusahaanFormPage({super.key});
+class KunjunganFormPage extends StatefulWidget {
+  KunjunganFormPage({super.key});
 
   @override
-  State<PerusahaanFormPage> createState() => _PerusahaanFormPageState();
+  State<KunjunganFormPage> createState() => _KunjunganFormPageState();
 }
 
-class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
+class _KunjunganFormPageState extends State<KunjunganFormPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final PerusahaanController perusahaanC = Get.put(PerusahaanController());
+  final KunjunganController kunjunganC = Get.put(KunjunganController());
 
   final TextEditingController namaController = TextEditingController();
-  final TextEditingController companyController = TextEditingController();
+  final TextEditingController instansiController = TextEditingController();
   final TextEditingController teleponController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController kunjunganController = TextEditingController();
@@ -112,7 +112,7 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Perusahaan',
+                      'Kunjungan',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -127,12 +127,12 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                   child: RefreshIndicator(
                     onRefresh: () async {
                       namaController.clear();
-                      companyController.clear();
+                      instansiController.clear();
                       teleponController.clear();
                       emailController.clear();
                       kunjunganController.clear();
                       selectedPurpose = null;
-                      perusahaanC.savedSignatureFile.value = null;
+                      kunjunganC.savedSignatureFile.value = null;
                       await Future.delayed(const Duration(milliseconds: 500));
                     },
                     child: SingleChildScrollView(
@@ -146,8 +146,7 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               inputField('Nama', " *", namaController),
-                              inputField(
-                                  'Nama Perusahaan', " *", companyController),
+                              inputField('Instansi', " *", instansiController),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
                                 child: DropdownButtonFormField<String>(
@@ -216,7 +215,7 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                           const SizedBox(height: 10),
                                           Expanded(
                                             child: Signature(
-                                              controller: perusahaanC
+                                              controller: kunjunganC
                                                   .signatureController,
                                               backgroundColor:
                                                   Colors.grey[200]!,
@@ -233,8 +232,7 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                         MaterialStatePropertyAll(
                                                             Colors.white)),
                                                 onPressed: () {
-                                                  perusahaanC
-                                                      .signatureController
+                                                  kunjunganC.signatureController
                                                       .clear();
                                                 },
                                                 icon: Icon(
@@ -251,10 +249,9 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                               ),
                                               ElevatedButton.icon(
                                                 onPressed: () async {
-                                                  final bytes =
-                                                      await perusahaanC
-                                                          .signatureController
-                                                          .toPngBytes();
+                                                  final bytes = await kunjunganC
+                                                      .signatureController
+                                                      .toPngBytes();
                                                   if (bytes != null) {
                                                     final tempDir =
                                                         await getTemporaryDirectory();
@@ -264,7 +261,7 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                     await file
                                                         .writeAsBytes(bytes);
 
-                                                    perusahaanC
+                                                    kunjunganC
                                                         .savedSignatureFile
                                                         .value = file;
 
@@ -302,11 +299,11 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                       border: Border.all(color: Colors.grey),
                                     ),
                                     child: Center(
-                                      child: perusahaanC
+                                      child: kunjunganC
                                                   .savedSignatureFile.value !=
                                               null
                                           ? Image.file(
-                                              perusahaanC
+                                              kunjunganC
                                                   .savedSignatureFile.value!,
                                               key: ValueKey(DateTime.now()
                                                   .millisecondsSinceEpoch),
@@ -355,30 +352,30 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                       const Color(0xFF112D4E),
                                       Colors.white, () {
                                     if (selectedPurpose != "Lainnya") {
-                                      perusahaanC.addPerusahaan(
+                                      kunjunganC.addKunjungan(
                                         namaController.text,
-                                        companyController.text,
+                                        instansiController.text,
                                         teleponController.text,
                                         emailController.text,
                                         selectedPurpose.toString(),
                                       );
                                     }
                                     if (selectedPurpose == "Lainnya") {
-                                      perusahaanC.addPerusahaan(
+                                      kunjunganC.addKunjungan(
                                         namaController.text,
-                                        companyController.text,
+                                        instansiController.text,
                                         teleponController.text,
                                         emailController.text,
                                         kunjunganController.text,
                                       );
                                     }
                                     namaController.clear();
-                                    companyController.clear();
+                                    instansiController.clear();
                                     teleponController.clear();
                                     emailController.clear();
                                     kunjunganController.clear();
                                     selectedPurpose = null;
-                                    perusahaanC.savedSignatureFile.value = null;
+                                    kunjunganC.savedSignatureFile.value = null;
                                   }),
                                 ],
                               ),
@@ -473,7 +470,7 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
               borderRadius: BorderRadius.circular(15),
             ),
           ),
-          child: Obx(() => perusahaanC.isLoading.value
+          child: Obx(() => kunjunganC.isLoading.value
               ? const CircularProgressIndicator(color: Colors.white)
               : Text(
                   text,

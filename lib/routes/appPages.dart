@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mobile/pages/AlumniFormPage.dart';
 import 'package:mobile/pages/HistoryPage.dart';
-import 'package:mobile/pages/KunjunganFormP';
+import 'package:mobile/pages/KunjunganFormP.dart';
 import 'package:mobile/pages/ParentFormPage.dart';
 import 'package:mobile/pages/PerusahaanFormP.dart';
 import 'package:mobile/pages/login_page.dart';

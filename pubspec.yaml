@@ -38,6 +38,9 @@ dependencies:
   get: ^4.6.6
   lottie: ^3.1.3
   font_awesome_flutter: ^10.8.0
+  get_storage: ^2.1.1
+  signature: ^5.5.0
+  path_provider: ^2.1.4
 
 dev_dependencies:
   flutter_test:
@@ -69,8 +72,11 @@ flutter:
     - assets/image/slider3.png
     - assets/image/slider5.png
     - assets/image/slider6.png
+    - assets/image/slider7.png
     - assets/image/clippath1.png
     - assets/image/bottom.png
+    - assets/image/Logo.png
+
     
     - assets/icon/bukuTamu.png
     - assets/icon/orangtua.png
@@ -78,10 +84,10 @@ flutter:
     - assets/icon/perusahaan.png
     - assets/icon/alumni.png
     - assets/icon/logout.png
+    - assets/icon/signature.png
 
     - assets/lottie/splashScreen.json
     - assets/lottie/splashScreen2.json
-    - assets/image/Logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
