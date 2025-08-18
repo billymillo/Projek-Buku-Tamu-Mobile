@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 
 class ApiService {
   static String baseUrl =
-      "http://192.168.138.73/Buku-Tamu-PPLG-XII-3/backend/public/api";
+      "http://192.168.1.13/Buku-Tamu-PPLG-XII-3/backend/public/api";
   final box = GetStorage();
 
   // Login
@@ -149,7 +149,7 @@ class ApiService {
     // fields
     request.fields['name'] = name;
     request.fields['graduation_year'] = graduation;
-    request.fields['major'] = graduation;
+    request.fields['major'] = major;
     request.fields['phone'] = phone;
     request.fields['email'] = email;
     request.fields['purpose'] = purpose;

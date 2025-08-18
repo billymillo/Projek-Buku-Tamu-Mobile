@@ -41,6 +41,14 @@ dependencies:
   get_storage: ^2.1.1
   signature: ^5.5.0
   path_provider: ^2.1.4
+  intl: ^0.20.2
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/image/Logo.png"
+  min_sdk_android: 21
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +93,7 @@ flutter:
     - assets/icon/alumni.png
     - assets/icon/logout.png
     - assets/icon/signature.png
+    - assets/icon/iconApp.png
 
     - assets/lottie/splashScreen.json
     - assets/lottie/splashScreen2.json

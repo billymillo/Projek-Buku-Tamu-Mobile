@@ -194,7 +194,7 @@ class _AlumniFormPageState extends State<AlumniFormPage> {
                               inputField('No. Telp', " *", teleponController,
                                   type: TextInputType.phone),
                               inputField('Email', " ", emailController,
-                                  type: TextInputType.phone),
+                                  type: TextInputType.emailAddress),
                               const SizedBox(height: 20),
                               GestureDetector(
                                 onTap: () {
@@ -350,38 +350,271 @@ class _AlumniFormPageState extends State<AlumniFormPage> {
                                   }),
                                   const SizedBox(width: 10),
                                   _actionButton(
-                                      'Simpan',
-                                      const Color(0xFF112D4E),
-                                      Colors.white, () {
-                                    if (selectedPurpose != "Lainnya") {
-                                      alumniC.addAlumni(
-                                        namaController.text,
-                                        graduationController.text,
-                                        majorController.text,
-                                        teleponController.text,
-                                        emailController.text,
-                                        selectedPurpose.toString(),
+                                    "Simpan",
+                                    const Color(0xFF112D4E),
+                                    Colors.white,
+                                    () {
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            backgroundColor: Colors.transparent,
+                                            child: SingleChildScrollView(
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.5,
+                                                padding:
+                                                    const EdgeInsets.all(20),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      20,
+                                                                  vertical: 10),
+                                                          child: Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(20),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  PrimaryColor()
+                                                                      .shadowBlue,
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .check_circle,
+                                                              color:
+                                                                  PrimaryColor()
+                                                                      .blue,
+                                                              size: 50,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 25),
+                                                        Text(
+                                                          "Simpan Data?",
+                                                          style: TextStyle(
+                                                            color:
+                                                                PrimaryColor()
+                                                                    .blue,
+                                                            fontSize: 20,
+                                                            fontFamily:
+                                                                "Roboto",
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 10),
+                                                        const Text(
+                                                          "Apakah data Kunjungan Alumni sudah sesuai yang diinginkan?",
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    133,
+                                                                    14,
+                                                                    14,
+                                                                    14),
+                                                            fontSize: 15,
+                                                            fontFamily:
+                                                                "Roboto",
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const SizedBox(height: 15),
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            if (selectedPurpose !=
+                                                                "Lainnya") {
+                                                              alumniC.addAlumni(
+                                                                namaController
+                                                                    .text,
+                                                                graduationController
+                                                                    .text,
+                                                                majorController
+                                                                    .text,
+                                                                teleponController
+                                                                    .text,
+                                                                emailController
+                                                                    .text,
+                                                                selectedPurpose
+                                                                    .toString(),
+                                                              );
+                                                            }
+                                                            if (selectedPurpose ==
+                                                                "Lainnya") {
+                                                              alumniC.addAlumni(
+                                                                namaController
+                                                                    .text,
+                                                                graduationController
+                                                                    .text,
+                                                                majorController
+                                                                    .text,
+                                                                teleponController
+                                                                    .text,
+                                                                emailController
+                                                                    .text,
+                                                                kunjunganController
+                                                                    .text,
+                                                              );
+                                                            }
+                                                            namaController
+                                                                .clear();
+                                                            graduationController
+                                                                .clear();
+                                                            majorController
+                                                                .clear();
+                                                            teleponController
+                                                                .clear();
+                                                            emailController
+                                                                .clear();
+                                                            kunjunganController
+                                                                .clear();
+                                                            selectedPurpose =
+                                                                null;
+                                                            alumniC
+                                                                .savedSignatureFile
+                                                                .value = null;
+                                                          },
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            backgroundColor:
+                                                                PrimaryColor()
+                                                                    .blue,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12),
+                                                            ),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              const SizedBox(
+                                                                  width: 8),
+                                                              Obx(
+                                                                () => alumniC
+                                                                        .isLoading
+                                                                        .value
+                                                                    ? const SizedBox(
+                                                                        width:
+                                                                            20,
+                                                                        height:
+                                                                            20,
+                                                                        child:
+                                                                            CircularProgressIndicator(
+                                                                          strokeWidth:
+                                                                              4,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      )
+                                                                    : const Text(
+                                                                        "Simpan",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              14,
+                                                                          fontFamily:
+                                                                              "Roboto",
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                        ),
+                                                                      ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        ElevatedButton(
+                                                          onPressed: () async {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            backgroundColor:
+                                                                Colors.grey
+                                                                    .shade200,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12),
+                                                            ),
+                                                          ),
+                                                          child: const Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              SizedBox(
+                                                                  width: 8),
+                                                              Text(
+                                                                'Cancel',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      "Roboto",
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       );
-                                    }
-                                    if (selectedPurpose == "Lainnya") {
-                                      alumniC.addAlumni(
-                                        namaController.text,
-                                        graduationController.text,
-                                        majorController.text,
-                                        teleponController.text,
-                                        emailController.text,
-                                        kunjunganController.text,
-                                      );
-                                    }
-                                    namaController.clear();
-                                    graduationController.clear();
-                                    majorController.clear();
-                                    teleponController.clear();
-                                    emailController.clear();
-                                    kunjunganController.clear();
-                                    selectedPurpose = null;
-                                    alumniC.savedSignatureFile.value = null;
-                                  }),
+                                    },
+                                  ),
                                 ],
                               ),
                             ],
@@ -466,24 +699,21 @@ class _AlumniFormPageState extends State<AlumniFormPage> {
   Widget _actionButton(String text, Color bg, Color fg, VoidCallback onTap) =>
       Expanded(
         child: ElevatedButton(
-          onPressed: onTap,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: bg,
-            foregroundColor: fg,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+            onPressed: onTap,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: bg,
+              foregroundColor: fg,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
             ),
-          ),
-          child: Obx(() => alumniC.isLoading.value
-              ? const CircularProgressIndicator(color: Colors.white)
-              : Text(
-                  text,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'roboto',
-                  ),
-                )),
-        ),
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'roboto',
+              ),
+            )),
       );
 }

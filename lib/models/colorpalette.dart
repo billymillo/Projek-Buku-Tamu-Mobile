@@ -8,6 +8,5 @@ class PrimaryColor {
   Color grey = Color(0xFFCBD5E1);
   Color shadowGrey = Color(0xFFE2E8F0);
   Color red = Color.fromARGB(255, 199, 39, 27);
-    Color green = Color.fromARGB(255, 86, 163, 66);
-
+  Color green = Color.fromARGB(255, 86, 163, 66);
 }

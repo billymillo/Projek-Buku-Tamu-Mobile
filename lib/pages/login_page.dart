@@ -52,6 +52,20 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Positioned(
+              bottom: 15,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Text(
+                  '© 2025 PPLG XII - 3 | GEN - 21 All rights reserved.',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.white.withOpacity(0.7),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
               top: 21,
               right: 21,
               child: Image.asset(
@@ -65,7 +79,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 160),
+                  const SizedBox(height: 200),
                   const Text(
                     "Masuk",
                     style: TextStyle(
@@ -107,8 +121,14 @@ class LoginPage extends StatelessWidget {
                         ),
                         child: Obx(
                           () => loginController.isLoading.value
-                              ? const CircularProgressIndicator(
-                                  color: Colors.white)
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 4,
+                                    color: Colors.white,
+                                  ),
+                                )
                               : const Text(
                                   "Lanjutkan",
                                   style: TextStyle(
@@ -123,13 +143,6 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 170),
-                  const Center(
-                    child: Text(
-                      "© 2025 PPLG XII - 3 | GEN - 21. All rights reserved.",
-                      style: TextStyle(fontSize: 10, color: Colors.grey),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
                 ],
               ),
             )
