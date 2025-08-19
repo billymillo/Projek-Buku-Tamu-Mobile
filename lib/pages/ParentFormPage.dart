@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:mobile/controller/KunjunganController.dart';
 import 'package:mobile/controller/ParentController.dart';
 import 'package:mobile/models/colorpalette.dart';
+import 'package:mobile/routes/appPages.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:signature/signature.dart';
 
@@ -31,7 +32,13 @@ class _ParentFormPageState extends State<ParentFormPage> {
   String? selectedPurpose;
   String? selectedRayon;
 
-  final purposes = ['Menjemput', 'Mengantar Barang', 'Lainnya'];
+  final purposes = [
+    'Menjemput',
+    'Mengantar Barang',
+    'Rapat',
+    'Bagi Rapot',
+    'Lainnya'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -483,10 +490,14 @@ class _ParentFormPageState extends State<ParentFormPage> {
                                                               .center,
                                                       children: [
                                                         ElevatedButton(
-                                                          onPressed: () {
+                                                          onPressed: () async {
+                                                            bool success =
+                                                                false;
                                                             if (selectedPurpose !=
                                                                 "Lainnya") {
-                                                              parentC.addParent(
+                                                              success =
+                                                                  await parentC
+                                                                      .addParent(
                                                                 namaController
                                                                     .text,
                                                                 studentController
@@ -505,7 +516,9 @@ class _ParentFormPageState extends State<ParentFormPage> {
                                                             }
                                                             if (selectedPurpose ==
                                                                 "Lainnya") {
-                                                              parentC.addParent(
+                                                              success =
+                                                                  await parentC
+                                                                      .addParent(
                                                                 namaController
                                                                     .text,
                                                                 studentController
@@ -522,28 +535,34 @@ class _ParentFormPageState extends State<ParentFormPage> {
                                                                     .text,
                                                               );
                                                             }
-                                                            namaController
-                                                                .clear();
-                                                            studentController
-                                                                .clear();
-                                                            selectedRayon =
-                                                                null;
-                                                            addressController
-                                                                .clear();
-                                                            teleponController
-                                                                .clear();
-                                                            emailController
-                                                                .clear();
-                                                            kunjunganController
-                                                                .clear();
-                                                            selectedPurpose =
-                                                                null;
-                                                            parentC
-                                                                .savedSignatureFile
-                                                                .value = null;
-                                                            parentC
-                                                                .signatureController
-                                                                .clear();
+                                                            if (success) {
+                                                              namaController
+                                                                  .clear();
+                                                              studentController
+                                                                  .clear();
+                                                              selectedRayon =
+                                                                  null;
+                                                              addressController
+                                                                  .clear();
+                                                              teleponController
+                                                                  .clear();
+                                                              emailController
+                                                                  .clear();
+                                                              kunjunganController
+                                                                  .clear();
+                                                              selectedPurpose =
+                                                                  null;
+                                                              parentC
+                                                                  .savedSignatureFile
+                                                                  .value = null;
+                                                              parentC
+                                                                  .signatureController
+                                                                  .clear();
+                                                              Navigator.pop(
+                                                                  context);
+                                                              Get.toNamed(Routes
+                                                                  .MAINMENUP);
+                                                            }
                                                           },
                                                           style: ElevatedButton
                                                               .styleFrom(

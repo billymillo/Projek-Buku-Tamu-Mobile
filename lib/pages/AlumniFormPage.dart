@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile/controller/AlumniController.dart';
 import 'package:mobile/models/colorpalette.dart';
+import 'package:mobile/routes/appPages.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:signature/signature.dart';
 
@@ -453,10 +454,14 @@ class _AlumniFormPageState extends State<AlumniFormPage> {
                                                               .center,
                                                       children: [
                                                         ElevatedButton(
-                                                          onPressed: () {
+                                                          onPressed: () async {
+                                                            bool success =
+                                                                false;
                                                             if (selectedPurpose !=
                                                                 "Lainnya") {
-                                                              alumniC.addAlumni(
+                                                              success =
+                                                                  await alumniC
+                                                                      .addAlumni(
                                                                 namaController
                                                                     .text,
                                                                 graduationController
@@ -470,10 +475,10 @@ class _AlumniFormPageState extends State<AlumniFormPage> {
                                                                 selectedPurpose
                                                                     .toString(),
                                                               );
-                                                            }
-                                                            if (selectedPurpose ==
-                                                                "Lainnya") {
-                                                              alumniC.addAlumni(
+                                                            } else {
+                                                              success =
+                                                                  await alumniC
+                                                                      .addAlumni(
                                                                 namaController
                                                                     .text,
                                                                 graduationController
@@ -488,23 +493,30 @@ class _AlumniFormPageState extends State<AlumniFormPage> {
                                                                     .text,
                                                               );
                                                             }
-                                                            namaController
-                                                                .clear();
-                                                            graduationController
-                                                                .clear();
-                                                            majorController
-                                                                .clear();
-                                                            teleponController
-                                                                .clear();
-                                                            emailController
-                                                                .clear();
-                                                            kunjunganController
-                                                                .clear();
-                                                            selectedPurpose =
-                                                                null;
-                                                            alumniC
-                                                                .savedSignatureFile
-                                                                .value = null;
+
+                                                            if (success) {
+                                                              namaController
+                                                                  .clear();
+                                                              graduationController
+                                                                  .clear();
+                                                              majorController
+                                                                  .clear();
+                                                              teleponController
+                                                                  .clear();
+                                                              emailController
+                                                                  .clear();
+                                                              kunjunganController
+                                                                  .clear();
+                                                              selectedPurpose =
+                                                                  null;
+                                                              alumniC
+                                                                  .savedSignatureFile
+                                                                  .value = null;
+                                                              Navigator.pop(
+                                                                  context);
+                                                              Get.toNamed(Routes
+                                                                  .MAINMENUP);
+                                                            }
                                                           },
                                                           style: ElevatedButton
                                                               .styleFrom(

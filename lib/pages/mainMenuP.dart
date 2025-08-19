@@ -92,6 +92,20 @@ class MainMenuP extends StatelessWidget {
                 ),
               ),
             ),
+            Positioned(
+              bottom: 15,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Text(
+                  '© 2025 PPLG XII - 3 | GEN - 21 All rights reserved.',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.white.withOpacity(0.7),
+                  ),
+                ),
+              ),
+            ),
             Container(
               width: MediaQuery.of(context).size.width * 1,
               padding: const EdgeInsets.only(
@@ -329,7 +343,7 @@ class MainMenuP extends StatelessWidget {
                           borderRadius: BorderRadius.circular(32)),
                       child: Align(
                         child: Text(
-                          'Kunjungan Sebelumnya',
+                          'Data Kunjungan',
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             color: PrimaryColor().blue,

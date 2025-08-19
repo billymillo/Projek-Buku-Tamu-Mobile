@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile/controller/PerusahaanController.dart';
 import 'package:mobile/models/colorpalette.dart';
+import 'package:mobile/routes/appPages.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:signature/signature.dart';
 
@@ -454,11 +455,14 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                               .center,
                                                       children: [
                                                         ElevatedButton(
-                                                          onPressed: () {
+                                                          onPressed: () async {
+                                                            bool success =
+                                                                false;
                                                             if (selectedPurpose !=
                                                                 "Lainnya") {
-                                                              perusahaanC
-                                                                  .addPerusahaan(
+                                                              success =
+                                                                  await perusahaanC
+                                                                      .addPerusahaan(
                                                                 namaController
                                                                     .text,
                                                                 companyController
@@ -473,8 +477,9 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                             }
                                                             if (selectedPurpose ==
                                                                 "Lainnya") {
-                                                              perusahaanC
-                                                                  .addPerusahaan(
+                                                              success =
+                                                                  await perusahaanC
+                                                                      .addPerusahaan(
                                                                 namaController
                                                                     .text,
                                                                 companyController
@@ -487,21 +492,27 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                                     .text,
                                                               );
                                                             }
-                                                            namaController
-                                                                .clear();
-                                                            companyController
-                                                                .clear();
-                                                            teleponController
-                                                                .clear();
-                                                            emailController
-                                                                .clear();
-                                                            kunjunganController
-                                                                .clear();
-                                                            selectedPurpose =
-                                                                null;
-                                                            perusahaanC
-                                                                .savedSignatureFile
-                                                                .value = null;
+                                                            if (success) {
+                                                              namaController
+                                                                  .clear();
+                                                              companyController
+                                                                  .clear();
+                                                              teleponController
+                                                                  .clear();
+                                                              emailController
+                                                                  .clear();
+                                                              kunjunganController
+                                                                  .clear();
+                                                              selectedPurpose =
+                                                                  null;
+                                                              perusahaanC
+                                                                  .savedSignatureFile
+                                                                  .value = null;
+                                                              Navigator.pop(
+                                                                  context);
+                                                              Get.toNamed(Routes
+                                                                  .MAINMENUP);
+                                                            }
                                                           },
                                                           style: ElevatedButton
                                                               .styleFrom(

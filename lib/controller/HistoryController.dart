@@ -19,6 +19,7 @@ class HistoryController extends GetxController {
   var parent = <Map<String, dynamic>>[].obs;
   var selectedTab = 'alumni'.obs;
   var visibleItemCount = 5.obs;
+  var searchQuery = "".obs;
 
   @override
   void onInit() async {

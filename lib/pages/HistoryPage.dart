@@ -110,7 +110,7 @@ class Historypage extends StatelessWidget {
                             const SizedBox(width: 10),
                             Expanded(
                                 child: _buildTabBtn(
-                                    "Company", "company", controller)),
+                                    "Perusahaan", "company", controller)),
                             const SizedBox(width: 10),
                             Expanded(
                                 child: _buildTabBtn(
@@ -118,7 +118,7 @@ class Historypage extends StatelessWidget {
                             const SizedBox(width: 10),
                             Expanded(
                                 child: _buildTabBtn(
-                                    "Parent", "parent", controller)),
+                                    "Orang Tua", "parent", controller)),
                           ],
                         ),
                       ),
@@ -193,80 +193,156 @@ class Historypage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // ambil hanya sesuai limit
-                              ...data
-                                  .take(controller.visibleItemCount.value)
-                                  .map((item) {
-                                return Container(
-                                  margin: const EdgeInsets.only(bottom: 15),
-                                  padding: const EdgeInsets.all(16),
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  decoration: BoxDecoration(
-                                    color: PrimaryColor().white,
+                              TextField(
+                                onChanged: (value) =>
+                                    controller.searchQuery.value = value,
+                                decoration: InputDecoration(
+                                  hintText:
+                                      "Cari berdasarkan nama atau telepon...",
+                                  prefixIcon: const Icon(
+                                    Icons.search,
+                                    color: Color(0xFF001E42),
+                                  ),
+                                  suffixIcon: Obx(() =>
+                                      controller.searchQuery.value.isNotEmpty
+                                          ? IconButton(
+                                              icon: const Icon(Icons.clear),
+                                              onPressed: () {
+                                                controller.searchQuery.value =
+                                                    "";
+                                              },
+                                            )
+                                          : const SizedBox.shrink()),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 16),
+                                  border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.05),
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _buildInfoRow("Tanggal",
-                                          formatDateHour(item['created_at'])),
-                                      _buildInfoRow("Nama", item['name']),
-                                      if (controller.selectedTab.value ==
-                                          "alumni") ...[
-                                        _buildInfoRow("Jurusan", item['major']),
-                                        _buildInfoRow("Tahun Lulus",
-                                            item['graduation_year']),
-                                      ],
-                                      if (controller.selectedTab.value ==
-                                          "company") ...[
-                                        _buildInfoRow(
-                                            "Perusahaan", item['company_name']),
-                                      ],
-                                      if (controller.selectedTab.value ==
-                                          "kunjungan") ...[
-                                        _buildInfoRow(
-                                            "Institusi", item['institution']),
-                                      ],
-                                      if (controller.selectedTab.value ==
-                                          "parent") ...[
-                                        _buildInfoRow(
-                                            "Nama Siswa", item['student_name']),
-                                      ],
-                                      _buildInfoRow("Kunjungan",
-                                          item['purposes']?['purpose']),
-                                    ],
-                                  ),
-                                );
-                              }),
-
-                              // Tombol load more jika masih ada data
-                              if (data.length >
-                                  controller.visibleItemCount.value)
-                                Center(
-                                  child: TextButton(
-                                    onPressed: () {
-                                      controller.visibleItemCount.value +=
-                                          5; // tambah 10 data
-                                    },
-                                    child: const Text(
-                                      "Munculkan Data Lain",
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'roboto',
-                                        color: Color(0xFF001E42),
-                                      ),
-                                    ),
+                                    borderSide: BorderSide.none,
                                   ),
                                 ),
+                              ),
+                              const SizedBox(height: 20),
+
+                              // ambil hanya sesuai limit + filter
+                              Obx(() {
+                                var filteredData = data.where((item) {
+                                  final query = controller.searchQuery.value
+                                      .toLowerCase();
+                                  final name = (item['name'] ?? "")
+                                      .toString()
+                                      .toLowerCase();
+                                  final phone = (item['phone'] ?? "")
+                                      .toString()
+                                      .toLowerCase();
+                                  return query.isEmpty ||
+                                      name.contains(query) ||
+                                      phone.contains(query);
+                                }).toList();
+
+                                if (filteredData.isEmpty) {
+                                  return const Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: Text(
+                                        "Data tidak ditemukan.",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                return Column(
+                                  children: [
+                                    ...filteredData
+                                        .take(controller.visibleItemCount.value)
+                                        .map((item) {
+                                      return Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 15),
+                                        padding: const EdgeInsets.all(16),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                1,
+                                        decoration: BoxDecoration(
+                                          color: PrimaryColor().white,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black
+                                                  .withOpacity(0.05),
+                                              blurRadius: 4,
+                                              offset: const Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            _buildInfoRow(
+                                                "Tanggal",
+                                                formatDateHour(
+                                                    item['created_at'])),
+                                            _buildInfoRow("Nama", item['name']),
+                                            _buildInfoRow(
+                                                "Telepon", item['phone']),
+                                            if (controller.selectedTab.value ==
+                                                "alumni") ...[
+                                              _buildInfoRow(
+                                                  "Jurusan", item['major']),
+                                              _buildInfoRow("Tahun Lulus",
+                                                  item['graduation_year']),
+                                            ],
+                                            if (controller.selectedTab.value ==
+                                                "company") ...[
+                                              _buildInfoRow("Perusahaan",
+                                                  item['company_name']),
+                                            ],
+                                            if (controller.selectedTab.value ==
+                                                "kunjungan") ...[
+                                              _buildInfoRow("Institusi",
+                                                  item['institution']),
+                                            ],
+                                            if (controller.selectedTab.value ==
+                                                "parent") ...[
+                                              _buildInfoRow("Nama Siswa",
+                                                  item['student_name']),
+                                            ],
+                                            _buildInfoRow("Kunjungan",
+                                                item['purposes']?['purpose']),
+                                          ],
+                                        ),
+                                      );
+                                    }),
+
+                                    // Tombol load more jika masih ada data
+                                    if (filteredData.length >
+                                        controller.visibleItemCount.value)
+                                      Center(
+                                        child: TextButton(
+                                          onPressed: () {
+                                            controller.visibleItemCount.value +=
+                                                5; // tambah 5 data
+                                          },
+                                          child: const Text(
+                                            "Munculkan Data Lain",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'roboto',
+                                              color: Color(0xFF001E42),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                );
+                              }),
                             ],
                           ),
                         );
@@ -328,7 +404,7 @@ class Historypage extends StatelessWidget {
 
   Widget _buildInfoRow(String label, dynamic value) {
     if (value == null || value.toString().isEmpty) {
-      return const SizedBox.shrink(); // tidak ditampilkan
+      return const SizedBox.shrink();
     }
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),

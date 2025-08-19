@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile/routes/appPages.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:signature/signature.dart';
 import 'package:mobile/services/apiService.dart';
@@ -21,7 +22,7 @@ class PerusahaanController extends GetxController {
   // observable file
   final savedSignatureFile = Rxn<File>();
 
-  Future<void> addPerusahaan(
+  Future<bool> addPerusahaan(
     String name,
     String company,
     String phone,
@@ -42,26 +43,30 @@ class PerusahaanController extends GetxController {
       if (response['status'] == true) {
         print(response['message']);
         Get.snackbar(
-          'Success',
+          'Berhasil',
           "Data tamu Perusahaan berhasil ditambahkan",
           backgroundColor: PrimaryColor().green.withOpacity(0.5),
           icon: const Icon(Icons.check_circle, color: Colors.white),
         );
+        Get.to(Routes.MAINMENUP);
+        return true;
       } else {
         Get.snackbar(
-          'Error',
+          'Gagal',
           response['message'] ?? 'Gagal menambahkan tamu kunjungan',
           backgroundColor: PrimaryColor().red.withOpacity(0.5),
           icon: const Icon(Icons.error, color: Colors.white),
         );
+        return false;
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
+        'Gagal',
         e.toString(),
         backgroundColor: PrimaryColor().red.withOpacity(0.5),
         icon: const Icon(Icons.crisis_alert, color: Colors.black),
       );
+      return false;
     } finally {
       isLoading.value = false;
     }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile/controller/KunjunganController.dart';
 import 'package:mobile/models/colorpalette.dart';
+import 'package:mobile/routes/appPages.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:signature/signature.dart';
 
@@ -451,11 +452,14 @@ class _KunjunganFormPageState extends State<KunjunganFormPage> {
                                                               .center,
                                                       children: [
                                                         ElevatedButton(
-                                                          onPressed: () {
+                                                          onPressed: () async {
+                                                            bool success =
+                                                                false;
                                                             if (selectedPurpose !=
                                                                 "Lainnya") {
-                                                              kunjunganC
-                                                                  .addKunjungan(
+                                                              success =
+                                                                  await kunjunganC
+                                                                      .addKunjungan(
                                                                 namaController
                                                                     .text,
                                                                 instansiController
@@ -470,8 +474,9 @@ class _KunjunganFormPageState extends State<KunjunganFormPage> {
                                                             }
                                                             if (selectedPurpose ==
                                                                 "Lainnya") {
-                                                              kunjunganC
-                                                                  .addKunjungan(
+                                                              success =
+                                                                  await kunjunganC
+                                                                      .addKunjungan(
                                                                 namaController
                                                                     .text,
                                                                 instansiController
@@ -484,21 +489,27 @@ class _KunjunganFormPageState extends State<KunjunganFormPage> {
                                                                     .text,
                                                               );
                                                             }
-                                                            namaController
-                                                                .clear();
-                                                            instansiController
-                                                                .clear();
-                                                            teleponController
-                                                                .clear();
-                                                            emailController
-                                                                .clear();
-                                                            kunjunganController
-                                                                .clear();
-                                                            selectedPurpose =
-                                                                null;
-                                                            kunjunganC
-                                                                .savedSignatureFile
-                                                                .value = null;
+                                                            if (success) {
+                                                              namaController
+                                                                  .clear();
+                                                              instansiController
+                                                                  .clear();
+                                                              teleponController
+                                                                  .clear();
+                                                              emailController
+                                                                  .clear();
+                                                              kunjunganController
+                                                                  .clear();
+                                                              selectedPurpose =
+                                                                  null;
+                                                              kunjunganC
+                                                                  .savedSignatureFile
+                                                                  .value = null;
+                                                              Navigator.pop(
+                                                                  context);
+                                                              Get.toNamed(Routes
+                                                                  .MAINMENUP);
+                                                            }
                                                           },
                                                           style: ElevatedButton
                                                               .styleFrom(

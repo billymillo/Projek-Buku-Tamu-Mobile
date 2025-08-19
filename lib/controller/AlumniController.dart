@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile/routes/appPages.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:signature/signature.dart';
 import 'package:mobile/services/apiService.dart';
@@ -21,7 +22,7 @@ class AlumniController extends GetxController {
   // observable file
   final savedSignatureFile = Rxn<File>();
 
-  Future<void> addAlumni(
+  Future<bool> addAlumni(
     String name,
     String graduation,
     String major,
@@ -38,32 +39,34 @@ class AlumniController extends GetxController {
         phone,
         email,
         purpose,
-        savedSignatureFile.value, // <-- akses file dari Rxn
+        savedSignatureFile.value,
       );
 
       if (response['status'] == true) {
-        print(response['message']);
         Get.snackbar(
-          'Success',
+          'Berhasil',
           "Data tamu Alumni berhasil ditambahkan",
           backgroundColor: PrimaryColor().green.withOpacity(0.5),
           icon: const Icon(Icons.check_circle, color: Colors.white),
         );
+        return true; 
       } else {
         Get.snackbar(
-          'Error',
+          'Gagal',
           response['message'] ?? 'Gagal menambahkan Tamu Alumni',
           backgroundColor: PrimaryColor().red.withOpacity(0.5),
           icon: const Icon(Icons.error, color: Colors.white),
         );
+        return false;
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
+        'Gagal',
         e.toString(),
         backgroundColor: PrimaryColor().red.withOpacity(0.5),
         icon: const Icon(Icons.crisis_alert, color: Colors.black),
       );
+      return false;
     } finally {
       isLoading.value = false;
     }
