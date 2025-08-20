@@ -458,6 +458,7 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                           onPressed: () async {
                                                             bool success =
                                                                 false;
+
                                                             if (selectedPurpose !=
                                                                 "Lainnya") {
                                                               success =
@@ -474,9 +475,7 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                                 selectedPurpose
                                                                     .toString(),
                                                               );
-                                                            }
-                                                            if (selectedPurpose ==
-                                                                "Lainnya") {
+                                                            } else {
                                                               success =
                                                                   await perusahaanC
                                                                       .addPerusahaan(
@@ -492,7 +491,9 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                                     .text,
                                                               );
                                                             }
+
                                                             if (success) {
+                                                              // ✅ Clear semua field
                                                               namaController
                                                                   .clear();
                                                               companyController
@@ -508,10 +509,11 @@ class _PerusahaanFormPageState extends State<PerusahaanFormPage> {
                                                               perusahaanC
                                                                   .savedSignatureFile
                                                                   .value = null;
-                                                              Navigator.pop(
-                                                                  context);
-                                                              Get.toNamed(Routes
-                                                                  .MAINMENUP);
+
+                                                              // ✅ Navigasi setelah sukses
+                                                              Get.offAllNamed(
+                                                                  Routes
+                                                                      .MAINMENUP);
                                                             }
                                                           },
                                                           style: ElevatedButton

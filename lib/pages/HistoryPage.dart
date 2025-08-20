@@ -365,7 +365,7 @@ class Historypage extends StatelessWidget {
                             minimumSize: const Size(double.infinity, 50),
                           ),
                           child: const Text(
-                            'KUNJUNGAN LAINNYA',
+                            'Kembali',
                             style: TextStyle(
                               color: Color(0xFF001E42),
                               fontWeight: FontWeight.bold,
@@ -433,11 +433,14 @@ class Historypage extends StatelessWidget {
                   ]
                 : [],
           ),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: isActive ? Colors.white : Colors.black87,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: isActive ? Colors.white : Colors.black87,
+              ),
             ),
           ),
         ),

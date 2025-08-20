@@ -493,6 +493,7 @@ class _ParentFormPageState extends State<ParentFormPage> {
                                                           onPressed: () async {
                                                             bool success =
                                                                 false;
+
                                                             if (selectedPurpose !=
                                                                 "Lainnya") {
                                                               success =
@@ -513,9 +514,7 @@ class _ParentFormPageState extends State<ParentFormPage> {
                                                                 selectedPurpose
                                                                     .toString(),
                                                               );
-                                                            }
-                                                            if (selectedPurpose ==
-                                                                "Lainnya") {
+                                                            } else {
                                                               success =
                                                                   await parentC
                                                                       .addParent(
@@ -535,6 +534,7 @@ class _ParentFormPageState extends State<ParentFormPage> {
                                                                     .text,
                                                               );
                                                             }
+
                                                             if (success) {
                                                               namaController
                                                                   .clear();
@@ -558,10 +558,10 @@ class _ParentFormPageState extends State<ParentFormPage> {
                                                               parentC
                                                                   .signatureController
                                                                   .clear();
-                                                              Navigator.pop(
-                                                                  context);
-                                                              Get.toNamed(Routes
-                                                                  .MAINMENUP);
+
+                                                              Get.offAllNamed(
+                                                                  Routes
+                                                                      .MAINMENUP);
                                                             }
                                                           },
                                                           style: ElevatedButton

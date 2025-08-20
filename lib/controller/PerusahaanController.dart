@@ -21,7 +21,6 @@ class PerusahaanController extends GetxController {
 
   // observable file
   final savedSignatureFile = Rxn<File>();
-
   Future<bool> addPerusahaan(
     String name,
     String company,
@@ -37,7 +36,7 @@ class PerusahaanController extends GetxController {
         phone,
         email,
         purpose,
-        savedSignatureFile.value, // <-- akses file dari Rxn
+        savedSignatureFile.value, // akses file dari Rxn
       );
 
       if (response['status'] == true) {
@@ -48,12 +47,11 @@ class PerusahaanController extends GetxController {
           backgroundColor: PrimaryColor().green.withOpacity(0.5),
           icon: const Icon(Icons.check_circle, color: Colors.white),
         );
-        Get.to(Routes.MAINMENUP);
-        return true;
+        return true; // ✅ cukup return true, tidak ada Get.to()
       } else {
         Get.snackbar(
           'Gagal',
-          response['message'] ?? 'Gagal menambahkan tamu kunjungan',
+          response['message'] ?? 'Gagal menambahkan tamu perusahaan',
           backgroundColor: PrimaryColor().red.withOpacity(0.5),
           icon: const Icon(Icons.error, color: Colors.white),
         );
@@ -61,7 +59,7 @@ class PerusahaanController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Gagal',
+        'Error',
         e.toString(),
         backgroundColor: PrimaryColor().red.withOpacity(0.5),
         icon: const Icon(Icons.crisis_alert, color: Colors.black),
