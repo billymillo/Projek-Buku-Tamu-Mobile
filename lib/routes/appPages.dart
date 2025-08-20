@@ -35,10 +35,10 @@ class AppPages {
       name: _Paths.LOGINPAGE,
       page: () => LoginPage(),
     ),
-    GetPage(
-      name: _Paths.HISTORYPAGE,
-      page: () => Historypage(),
-    ),
+    // GetPage(
+    //   name: _Paths.HISTORYPAGE,
+    //   page: () => Historypage(),
+    // ),
     GetPage(
       name: _Paths.KUNJUNGANFORMP,
       page: () => KunjunganFormPage(),
