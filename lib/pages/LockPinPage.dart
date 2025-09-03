@@ -149,64 +149,77 @@ class LockPinPage extends StatelessWidget {
 
   /// Button Angka
   Widget _buildPinButton(String text, {VoidCallback? onTap}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      child: GestureDetector(
-        onTap: () {
-          onTap?.call();
-          if (c.pin.value.length == 6) {
-            if (c.pin.value == "123456") {
-              Get.offAllNamed(Routes.HISTORYPAGE);
-            } else {
-              Get.snackbar("Error", "PIN salah",
-                  backgroundColor: Colors.red.shade100);
-              c.clearPin();
-            }
-          }
-        },
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            color: const Color(0xFFE8F1FA),
-            shape: BoxShape.circle,
-            border: Border.all(color: PrimaryColor().blue, width: 1),
-          ),
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontFamily: "Roboto",
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: PrimaryColor().blue,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double buttonSize =
+            MediaQuery.of(context).size.width * 0.12; // responsif
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 8), // dikurangi biar fleksibel
+          child: GestureDetector(
+            onTap: () {
+              onTap?.call();
+              if (c.pin.value.length == 6) {
+                if (c.pin.value == "123456") {
+                  Get.offAllNamed(Routes.HISTORYPAGE);
+                } else {
+                  Get.snackbar("Error", "PIN salah",
+                      backgroundColor: Colors.red.shade100);
+                  c.clearPin();
+                }
+              }
+            },
+            child: Container(
+              width: buttonSize,
+              height: buttonSize,
+              decoration: BoxDecoration(
+                color: const Color(0xFFE8F1FA),
+                shape: BoxShape.circle,
+                border: Border.all(color: PrimaryColor().blue, width: 1),
+              ),
+              child: Center(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    fontFamily: "Roboto",
+                    fontSize: buttonSize * 0.35, // teks ikut mengecil
+                    fontWeight: FontWeight.bold,
+                    color: PrimaryColor().blue,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
   /// Button Icon
   Widget _buildPinButtonIcon(IconData icon, {VoidCallback? onTap}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            color: const Color(0xFFE8F1FA),
-            shape: BoxShape.circle,
-            border: Border.all(color: PrimaryColor().blue, width: 1),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double buttonSize = MediaQuery.of(context).size.width * 0.12;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: GestureDetector(
+            onTap: onTap,
+            child: Container(
+              width: buttonSize,
+              height: buttonSize,
+              decoration: BoxDecoration(
+                color: const Color(0xFFE8F1FA),
+                shape: BoxShape.circle,
+                border: Border.all(color: PrimaryColor().blue, width: 1),
+              ),
+              child: Center(
+                child: Icon(icon,
+                    color: PrimaryColor().blue, size: buttonSize * 0.35),
+              ),
+            ),
           ),
-          child: Center(
-            child: Icon(icon, color: PrimaryColor().blue, size: 20),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
