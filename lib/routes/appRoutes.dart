@@ -8,9 +8,10 @@ abstract class Routes {
   static const MAINMENUP = _Paths.MAINMENUP;
   static const PARENTFORMPAGE = _Paths.PARENTFORMPAGE;
   static const ALUMNIFORMPAGE = _Paths.ALUMNIFORMPAGE;
-  // static const HISTORYPAGE = _Paths.HISTORYPAGE;
+  static const HISTORYPAGE = _Paths.HISTORYPAGE;
   static const KUNJUNGANFORMP = _Paths.KUNJUNGANFORMP;
   static const PERUSAHAANFORMP = _Paths.PERUSAHAANFORMP;
+  static const LOCKPINP = _Paths.LOCKPINP;
 }
 
 abstract class _Paths {
@@ -20,7 +21,8 @@ abstract class _Paths {
   static const MAINMENUP = '/MainMenuPage';
   static const PARENTFORMPAGE = '/ParentFormPage';
   static const ALUMNIFORMPAGE = '/AlumniFormPage';
-  // static const HISTORYPAGE = '/HistoryPage';
+  static const HISTORYPAGE = '/HistoryPage';
   static const KUNJUNGANFORMP = '/KunjunganFormPage';
   static const PERUSAHAANFORMP = '/PerusahaanFormPage';
+  static const LOCKPINP = '/LockPinPage';
 }

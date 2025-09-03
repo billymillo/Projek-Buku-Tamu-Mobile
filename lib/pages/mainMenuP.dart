@@ -331,29 +331,29 @@ class MainMenuP extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     Get.toNamed(Routes.HISTORYPAGE);
-                  //   },
-                  //   child: Container(
-                  //     width: MediaQuery.of(context).size.width * 1,
-                  //     height: MediaQuery.of(context).size.height * 0.08,
-                  //     decoration: BoxDecoration(
-                  //         color: PrimaryColor().shadowGrey,
-                  //         borderRadius: BorderRadius.circular(32)),
-                  //     child: Align(
-                  //       child: Text(
-                  //         'Data Kunjungan',
-                  //         style: TextStyle(
-                  //           fontFamily: 'Roboto',
-                  //           color: PrimaryColor().blue,
-                  //           fontSize: 16,
-                  //           fontWeight: FontWeight.w600,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // )
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.LOCKPINP);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 1,
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      decoration: BoxDecoration(
+                          color: PrimaryColor().shadowGrey,
+                          borderRadius: BorderRadius.circular(32)),
+                      child: Align(
+                        child: Text(
+                          'Data Kunjungan',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            color: PrimaryColor().blue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

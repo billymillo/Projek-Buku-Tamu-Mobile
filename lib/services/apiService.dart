@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 
 class ApiService {
   static String baseUrl =
-      "http://15.15.11.167/Buku-Tamu-PPLG-XII-3/backend/public/api";
+      "http://b934d749d7cd.ngrok-free.app/api";
   final box = GetStorage();
 
   // Login
