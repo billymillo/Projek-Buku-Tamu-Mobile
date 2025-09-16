@@ -86,7 +86,7 @@ class ParentController extends GetxController {
         savedSignatureFile.value,
       );
 
-      if (response['status'] == true) {
+      if (response['status'] == 'success') {
         print(response['message']);
         Get.snackbar(
           'Berhasil',
@@ -103,6 +103,7 @@ class ParentController extends GetxController {
           backgroundColor: PrimaryColor().red.withOpacity(0.5),
           icon: const Icon(Icons.error, color: Colors.white),
         );
+        print("error api" + response['message']);
       }
       return false;
     } catch (e) {
@@ -112,6 +113,7 @@ class ParentController extends GetxController {
         backgroundColor: PrimaryColor().red.withOpacity(0.5),
         icon: const Icon(Icons.crisis_alert, color: Colors.black),
       );
+      print("Error: $e");
       return false;
     } finally {
       isLoading.value = false;

@@ -97,13 +97,13 @@ class LockPinPage extends StatelessWidget {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 20),
                       _buildRow(["1", "2", "3"]),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
                       _buildRow(["4", "5", "6"]),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
                       _buildRow(["7", "8", "9"]),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -152,21 +152,15 @@ class LockPinPage extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         double buttonSize =
-            MediaQuery.of(context).size.width * 0.12; // responsif
+            MediaQuery.of(context).size.width * 0.14; // responsif
         return Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: 8), // dikurangi biar fleksibel
+              horizontal: 16), // dikurangi biar fleksibel
           child: GestureDetector(
             onTap: () {
               onTap?.call();
               if (c.pin.value.length == 6) {
-                if (c.pin.value == "123456") {
-                  Get.offAllNamed(Routes.HISTORYPAGE);
-                } else {
-                  Get.snackbar("Error", "PIN salah",
-                      backgroundColor: Colors.red.shade100);
-                  c.clearPin();
-                }
+                Get.offAllNamed(Routes.HISTORYPAGE);
               }
             },
             child: Container(
@@ -182,7 +176,7 @@ class LockPinPage extends StatelessWidget {
                   text,
                   style: TextStyle(
                     fontFamily: "Roboto",
-                    fontSize: buttonSize * 0.35, // teks ikut mengecil
+                    fontSize: buttonSize * 0.37, // teks ikut mengecil
                     fontWeight: FontWeight.bold,
                     color: PrimaryColor().blue,
                   ),
@@ -199,9 +193,9 @@ class LockPinPage extends StatelessWidget {
   Widget _buildPinButtonIcon(IconData icon, {VoidCallback? onTap}) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double buttonSize = MediaQuery.of(context).size.width * 0.12;
+        double buttonSize = MediaQuery.of(context).size.width * 0.14;
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: GestureDetector(
             onTap: onTap,
             child: Container(
@@ -214,7 +208,7 @@ class LockPinPage extends StatelessWidget {
               ),
               child: Center(
                 child: Icon(icon,
-                    color: PrimaryColor().blue, size: buttonSize * 0.35),
+                    color: PrimaryColor().blue, size: buttonSize * 0.37),
               ),
             ),
           ),

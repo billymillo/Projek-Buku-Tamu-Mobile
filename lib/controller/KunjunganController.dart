@@ -49,6 +49,7 @@ class KunjunganController extends GetxController {
         );
         return true;
       } else {
+        print("error api" + response['message']);
         Get.snackbar(
           'Gagal',
           response['message'] ?? 'Gagal menambahkan tamu kunjungan',
@@ -58,6 +59,7 @@ class KunjunganController extends GetxController {
         return false;
       }
     } catch (e) {
+      print("Error: $e");
       Get.snackbar(
         'Gagal',
         e.toString(),

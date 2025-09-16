@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile/models/colorpalette.dart';
 import 'package:mobile/routes/appPages.dart';
 
 class LockPinController extends GetxController {
   var pin = "".obs;
 
-  final String correctPin = "123456"; // PIN yang benar
+  final String correctPin = "242411";
 
   void addDigit(String digit) {
     if (pin.value.length < 6) {
@@ -28,11 +30,14 @@ class LockPinController extends GetxController {
 
   void checkPin() {
     if (pin.value == correctPin) {
-      // pindah ke halaman HistoryPage
       Get.offAllNamed(Routes.HISTORYPAGE);
     } else {
-      // reset jika salah
-      Get.snackbar("PIN Salah", "Silakan coba lagi");
+      Get.snackbar(
+        'Gagal',
+        "Pin yang dimasukkan salah!",
+        backgroundColor: PrimaryColor().red.withOpacity(0.5),
+        icon: const Icon(Icons.crisis_alert, color: Colors.black),
+      );
       clearPin();
     }
   }

@@ -18,6 +18,8 @@ class _ValidationPState extends State<ValidationP>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+
+    // Ketika animasi selesai → langsung pindah ke login
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Get.offNamed(Routes.LOGINPAGE);
@@ -41,13 +43,20 @@ class _ValidationPState extends State<ValidationP>
           controller: _controller,
           onLoaded: (composition) {
             final fullDuration = composition.duration;
-            final skippedStart = Duration(seconds: 1);
+            final skippedStart = const Duration(seconds: 1); // skip awal
             final remainingDuration = fullDuration - skippedStart;
+
+            // Set durasi lebih cepat
             _controller.duration = remainingDuration * (1 / 1.5);
+
+            // Hitung progress mulai dari skip
             final startProgress =
                 skippedStart.inMilliseconds / fullDuration.inMilliseconds;
 
-            _controller.forward(from: startProgress);
+            // Jalankan animasi langsung tanpa delay frame tambahan
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _controller.forward(from: startProgress);
+            });
           },
         ),
       ),
