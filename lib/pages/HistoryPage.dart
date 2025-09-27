@@ -534,6 +534,11 @@ class Historypage extends StatelessWidget {
                                                 children: List.generate(
                                                     item['purposes'].length,
                                                     (index) {
+                                                  final signaturePath =
+                                                      item['signature_path'] ??
+                                                          '';
+                                                  final imageUrl =
+                                                      'http://192.168.1.5:8000/storage/$signaturePath';
                                                   final purpose =
                                                       item['purposes'][index];
                                                   final purposeText =
@@ -615,6 +620,30 @@ class Historypage extends StatelessWidget {
                                                                       'roboto',
                                                                 ),
                                                               ),
+                                                              if (signaturePath
+                                                                  .isNotEmpty) ...[
+                                                                const SizedBox(
+                                                                    height: 8),
+                                                                ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8),
+                                                                  child: Image
+                                                                      .network(
+                                                                    imageUrl,
+                                                                    width: 120,
+                                                                    height: 80,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                    errorBuilder: (context,
+                                                                            error,
+                                                                            stackTrace) =>
+                                                                        const Icon(
+                                                                            Icons.broken_image),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ],
                                                           ),
                                                         ),

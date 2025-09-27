@@ -86,7 +86,7 @@ class ParentController extends GetxController {
         savedSignatureFile.value,
       );
 
-      if (response['status'] == 'success') {
+      if (response['status'] == "success" || response['status'] == true) {
         print(response['message']);
         Get.snackbar(
           'Berhasil',
@@ -94,7 +94,7 @@ class ParentController extends GetxController {
           backgroundColor: PrimaryColor().green.withOpacity(0.5),
           icon: const Icon(Icons.check_circle, color: Colors.white),
         );
-        Get.to(Routes.MAINMENUP);
+        Get.toNamed(Routes.MAINMENUP);
         return true;
       } else {
         Get.snackbar(

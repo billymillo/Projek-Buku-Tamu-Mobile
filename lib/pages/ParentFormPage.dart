@@ -558,10 +558,6 @@ class _ParentFormPageState extends State<ParentFormPage> {
                                                               parentC
                                                                   .signatureController
                                                                   .clear();
-
-                                                              Get.offAllNamed(
-                                                                  Routes
-                                                                      .MAINMENUP);
                                                             }
                                                           },
                                                           style: ElevatedButton
