@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
 
 class ApiService {
-  // static String baseUrl = "https://2abe116e5bc2.ngrok-free.app/api";
-  static String baseUrl = "http://192.168.1.5:8000/api";
+  static String baseUrl = "https://d30f828e0f70.ngrok-free.app/api";
+  // static String baseUrl = "http://192.168.1.5:8000/api";
 
   final box = GetStorage();
 
